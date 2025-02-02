@@ -42,9 +42,20 @@ diagnósticos anonimizados"
 		domainVisionStatement = "Contactar y vender los servicios Enterprise de las imágenes médicas"
 	}
 
-	Subdomain InteligenciaDeNegocio {
+	// TO-BE
+	Subdomain SeguridadYCompliance {
 		type = SUPPORTING_DOMAIN
-		domainVisionStatement = "Analizar y reportar los datos de la operación de las imágenes médicas"
+		domainVisionStatement = "Supervisar y regular los procesos de la operación de las imágenes médicas"
+	}
+
+	Subdomain RegionEEUU {
+		type = SUPPORTING_DOMAIN
+		domainVisionStatement = "Segmentar y almacenar los datos de las imágenes médicas en EE.UU."
+	}
+
+	Subdomain RegionLATAM {
+		type = SUPPORTING_DOMAIN
+		domainVisionStatement = "Segmentar y almacenar los datos de las imágenes médicas en LATAM"
 	}
 
 }
@@ -67,52 +78,84 @@ BoundedContext ContextoGestionUsuarios implements GestionUsuarios {
 BoundedContext ContextoFacturacion implements Facturacion, Ventas {
 }
 
-BoundedContext ContextoInteligenciaNegocio implements InteligenciaDeNegocio {
+// TO-BE
+BoundedContext ContextoSeguridadYCompliance implements SeguridadYCompliance {
 }
 
-ContextMap InformacionImagenesMedicasMap {
-	state = AS_IS
+BoundedContext ContextoRegionEEUU implements RegionEEUU {
+}
+
+BoundedContext ContextoRegionLATAM implements RegionLATAM {
+}
+
+// AS-IS
+// ContextMap InformacionImagenesMedicasMap {
+// 	state = AS_IS
+// 	contains ContextoIngestion
+// 	contains ContextoProcesamiento
+// 	contains ContextoDistribucion
+// 	contains ContextoEntrenamiento
+// 	contains ContextoGestionUsuarios
+// 	contains ContextoFacturacion
+// 	/*
+// 	 * Relaciones entre contextos acotados
+// 	 */
+// 	/* El procesamiento depende de la ingesta */
+// 	ContextoProcesamiento [D] <- [U] ContextoIngestion
+// 	/* La distribución depende del procesamiento */
+// 	ContextoProcesamiento [SK] <-> [SK] ContextoDistribucion
+// 	/* El entrenamiento depende del procesamiento de imágenes */
+// 	ContextoProcesamiento [SK] <-> [SK] ContextoEntrenamiento
+// 	ContextoEntrenamiento [SK] <-> [SK] ContextoDistribucion
+// 	/* La facturación tiene una relación con la distribución (pago por acceso) y entrenamiento (pago por modelos y entrenamientos) */
+// 	ContextoFacturacion [D] <- [U] ContextoEntrenamiento
+// 	ContextoFacturacion [D] <- [U] ContextoDistribucion
+// 	/* La gestión de usuarios impacta en la distribución y facturación */
+// 	ContextoDistribucion [D] <- [U] ContextoGestionUsuarios
+// 	ContextoFacturacion [D] <- [U] ContextoGestionUsuarios
+// }
+// TO-BE
+ContextMap InformacionImagenesMedicasMap_TO_BE {
+	state = TO_BE
 	contains ContextoIngestion
 	contains ContextoProcesamiento
 	contains ContextoDistribucion
 	contains ContextoEntrenamiento
 	contains ContextoGestionUsuarios
 	contains ContextoFacturacion
-	contains ContextoInteligenciaNegocio
+	contains ContextoSeguridadYCompliance
+	contains ContextoRegionEEUU
+	contains ContextoRegionLATAM
 
 	/*
 	 * Relaciones entre contextos acotados
 	 */
 	/* El procesamiento depende de la ingesta */
-	ContextoProcesamiento [D] <- [U] ContextoIngestion
+	ContextoProcesamiento [D] <- [OHS, PL] ContextoIngestion
 
 	/* La distribución depende del procesamiento */
-	ContextoProcesamiento [SK] <-> [SK] ContextoDistribucion
+	ContextoProcesamiento [D] <- [OHS, PL] ContextoDistribucion
 
 	/* El entrenamiento depende del procesamiento de imágenes */
-	ContextoProcesamiento [SK] <-> [SK] ContextoEntrenamiento
+	ContextoProcesamiento [D] <- [OHS, PL] ContextoEntrenamiento
 
-	ContextoEntrenamiento [SK] <-> [SK] ContextoDistribucion
+	ContextoEntrenamiento [D] <- [OHS, PL] ContextoDistribucion
 
-	/* La facturación tiene una relación con la distribución (pago por acceso) y entrenamiento (pago por modelos y entrenamientos) */
-	ContextoFacturacion [D] <- [U] ContextoEntrenamiento
+	/* La facturación tiene una relación con la distribución y entrenamiento */
+	ContextoFacturacion [D, ACL] <- [U] ContextoEntrenamiento
 
-	ContextoFacturacion [D] <- [U] ContextoDistribucion
+	ContextoFacturacion [D, ACL] <- [U] ContextoDistribucion
 
 	/* La gestión de usuarios impacta en la distribución y facturación */
-	ContextoDistribucion [D] <- [U] ContextoGestionUsuarios
+	ContextoDistribucion [D, ACL] <- [U] ContextoGestionUsuarios
 
-	ContextoFacturacion [D] <- [U] ContextoGestionUsuarios
+	ContextoFacturacion [D, ACL] <- [U] ContextoGestionUsuarios
 
-	/* Inteligencia de negocio consume datos de toda la operación */
-	ContextoInteligenciaNegocio [D] <- [U] ContextoIngestion
+	/* Contextos de region y compliance */
+	ContextoSeguridadYCompliance [D] <- [OHS, PL] ContextoIngestion
 
-	ContextoInteligenciaNegocio [D] <- [U] ContextoProcesamiento
+	ContextoRegionEEUU [D] <- [OHS, PL] ContextoIngestion
 
-	ContextoInteligenciaNegocio [D] <- [U] ContextoDistribucion
-
-	ContextoInteligenciaNegocio [D] <- [U] ContextoFacturacion
-
-	ContextoInteligenciaNegocio [D] <- [U] ContextoEntrenamiento
+	ContextoRegionLATAM [D] <- [OHS, PL] ContextoIngestion
 }
 
