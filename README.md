@@ -27,11 +27,12 @@ ingestión y enriquecimiento de datos" AS-IS y TO-BE, y los contextos acotados A
 ├── gradlew.bat
 ├── images
 ├── settings.gradle
-└── src
+└── src (aquí encuentra los fragmentos de código para su calificación)
 ```
 
-El proyecto cuenta con la estructura por defecto de un proyecto para correr `Context Mapper` en el cual se encuentran los archivos de configuración (`build.gradle`, `gradle.properties`, `gradlew`, `gradlew.bat`, `settings.gradle`) y la carpeta de `src/cml` en donde se encuentran donde se encuentran los archivos de código para generar los diagramas de Context Mapper. Puede visaulizar los diagramas con su respectiva información y comentarios.
+El proyecto cuenta con la estructura por defecto de un proyecto para correr `Context Mapper` en el cual se encuentran los archivos de configuración (`build.gradle`, `gradle.properties`, `gradlew`, `gradlew.bat`, `settings.gradle`) y la carpeta de `src/cml` en donde se encuentran donde se encuentran los archivos de código para generar los diagramas de Context Mapper. Puede visaulizar los diagramas con su respectiva información y comentarios. La carpeta `images` contiene las imágenes de los diagramas generados.
 
+En el README se encuentra la información de los hallazgos de los dominios de negocio, la documentación del lenguaje ubicuo con respecto al flujo de "anonimización, ingestión y enriquecimiento de datos" AS-IS y TO-BE, y los contextos acotados AS-IS y TO-BE.
 
 ## Dominio de negocio
 
