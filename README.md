@@ -15,6 +15,23 @@
 
 A continuación se presenta el proyecto de la materia Diseño y construcción de soluciones no monolíticas, en el cual exploramos la división por dominios de Salud Tech de los Alpes. A continuación se muestran los hallazgos de los dominios de negocio, la documentación del lenguaje ubicuo con respecto al flujo de "anonimización,
 ingestión y enriquecimiento de datos" AS-IS y TO-BE, y los contextos acotados AS-IS y TO-BE.
+## Estructura del proyecto
+
+```bash
+.
+├── README.md
+├── build.gradle
+├── gradle
+├── gradle.properties
+├── gradlew
+├── gradlew.bat
+├── images
+├── settings.gradle
+└── src
+```
+
+El proyecto cuenta con la estructura por defecto de un proyecto para correr `Context Mapper` en el cual se encuentran los archivos de configuración (`build.gradle`, `gradle.properties`, `gradlew`, `gradlew.bat`, `settings.gradle`) y la carpeta de `src/cml` en donde se encuentran donde se encuentran los archivos de código para generar los diagramas de Context Mapper. Puede visaulizar los diagramas con su respectiva información y comentarios.
+
 
 ## Dominio de negocio
 

@@ -42,6 +42,22 @@ diagnósticos anonimizados"
 		domainVisionStatement = "Contactar y vender los servicios Enterprise de las imágenes médicas"
 	}
 
+	// TO-BE
+	Subdomain SeguridadYCompliance {
+		type = SUPPORTING_DOMAIN
+		domainVisionStatement = "Supervisar y regular los procesos de la operación de las imágenes médicas"
+	}
+
+	Subdomain RegionEEUU {
+		type = SUPPORTING_DOMAIN
+		domainVisionStatement = "Segmentar y almacenar los datos de las imágenes médicas en EE.UU."
+	}
+
+	Subdomain RegionLATAM {
+		type = SUPPORTING_DOMAIN
+		domainVisionStatement = "Segmentar y almacenar los datos de las imágenes médicas en LATAM"
+	}
+
 }
 
 BoundedContext ContextoIngestion implements Ingestion, Limpieza {
@@ -62,38 +78,58 @@ BoundedContext ContextoGestionUsuarios implements GestionUsuarios {
 BoundedContext ContextoFacturacion implements Facturacion, Ventas {
 }
 
-//AS-IS
-ContextMap InformacionImagenesMedicasMap {
-	state = AS_IS
+// TO-BE
+BoundedContext ContextoSeguridadYCompliance implements SeguridadYCompliance {
+}
+
+BoundedContext ContextoRegionEEUU implements RegionEEUU {
+}
+
+BoundedContext ContextoRegionLATAM implements RegionLATAM {
+}
+
+// TO-BE
+ContextMap InformacionImagenesMedicasMap_TO_BE {
+	state = TO_BE
 	contains ContextoIngestion
 	contains ContextoProcesamiento
 	contains ContextoDistribucion
 	contains ContextoEntrenamiento
 	contains ContextoGestionUsuarios
 	contains ContextoFacturacion
+	contains ContextoSeguridadYCompliance
+	contains ContextoRegionEEUU
+	contains ContextoRegionLATAM
 
 	/*
 	 * Relaciones entre contextos acotados
 	 */
 	/* El procesamiento depende de la ingesta */
-	ContextoProcesamiento [D] <- [U] ContextoIngestion
+	ContextoProcesamiento [D] <- [OHS, PL] ContextoIngestion
 
 	/* La distribución depende del procesamiento */
-	ContextoProcesamiento [SK] <-> [SK] ContextoDistribucion
+	ContextoProcesamiento [D] <- [OHS, PL] ContextoDistribucion
 
 	/* El entrenamiento depende del procesamiento de imágenes */
-	ContextoProcesamiento [SK] <-> [SK] ContextoEntrenamiento
+	ContextoProcesamiento [D] <- [OHS, PL] ContextoEntrenamiento
 
-	ContextoEntrenamiento [SK] <-> [SK] ContextoDistribucion
+	ContextoEntrenamiento [D] <- [OHS, PL] ContextoDistribucion
 
-	/* La facturación tiene una relación con la distribución (pago por acceso) y entrenamiento (pago por modelos y entrenamientos) */
-	ContextoFacturacion [D] <- [U] ContextoEntrenamiento
+	/* La facturación tiene una relación con la distribución y entrenamiento */
+	ContextoFacturacion [D, ACL] <- [U] ContextoEntrenamiento
 
-	ContextoFacturacion [D] <- [U] ContextoDistribucion
+	ContextoFacturacion [D, ACL] <- [U] ContextoDistribucion
 
 	/* La gestión de usuarios impacta en la distribución y facturación */
-	ContextoDistribucion [D] <- [U] ContextoGestionUsuarios
+	ContextoDistribucion [D, ACL] <- [U] ContextoGestionUsuarios
 
-	ContextoFacturacion [D] <- [U] ContextoGestionUsuarios
+	ContextoFacturacion [D, ACL] <- [U] ContextoGestionUsuarios
+
+	/* Contextos de region y compliance */
+	ContextoSeguridadYCompliance [D] <- [OHS, PL] ContextoIngestion
+
+	ContextoRegionEEUU [D] <- [OHS, PL] ContextoIngestion
+
+	ContextoRegionLATAM [D] <- [OHS, PL] ContextoIngestion
 }
 
