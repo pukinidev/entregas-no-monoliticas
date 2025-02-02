@@ -49,3 +49,70 @@ diagnósticos anonimizados"
 
 }
 
+BoundedContext ContextoIngestion implements Ingestion, Limpieza {
+}
+
+BoundedContext ContextoProcesamiento implements Procesamiento {
+}
+
+BoundedContext ContextoDistribucion implements Distribucion {
+}
+
+BoundedContext ContextoEntrenamiento implements Entrenamiento {
+}
+
+BoundedContext ContextoGestionUsuarios implements GestionUsuarios {
+}
+
+BoundedContext ContextoFacturacion implements Facturacion, Ventas {
+}
+
+BoundedContext ContextoInteligenciaNegocio implements InteligenciaDeNegocio {
+}
+
+ContextMap InformacionImagenesMedicasMap {
+	state = AS_IS
+	contains ContextoIngestion
+	contains ContextoProcesamiento
+	contains ContextoDistribucion
+	contains ContextoEntrenamiento
+	contains ContextoGestionUsuarios
+	contains ContextoFacturacion
+	contains ContextoInteligenciaNegocio
+
+	/*
+	 * Relaciones entre contextos acotados
+	 */
+	/* El procesamiento depende de la ingesta */
+	ContextoProcesamiento [D] <- [U] ContextoIngestion
+
+	/* La distribución depende del procesamiento */
+	ContextoProcesamiento [SK] <-> [SK] ContextoDistribucion
+
+	/* El entrenamiento depende del procesamiento de imágenes */
+	ContextoProcesamiento [SK] <-> [SK] ContextoEntrenamiento
+
+	ContextoEntrenamiento [SK] <-> [SK] ContextoDistribucion
+
+	/* La facturación tiene una relación con la distribución (pago por acceso) y entrenamiento (pago por modelos y entrenamientos) */
+	ContextoFacturacion [D] <- [U] ContextoEntrenamiento
+
+	ContextoFacturacion [D] <- [U] ContextoDistribucion
+
+	/* La gestión de usuarios impacta en la distribución y facturación */
+	ContextoDistribucion [D] <- [U] ContextoGestionUsuarios
+
+	ContextoFacturacion [D] <- [U] ContextoGestionUsuarios
+
+	/* Inteligencia de negocio consume datos de toda la operación */
+	ContextoInteligenciaNegocio [D] <- [U] ContextoIngestion
+
+	ContextoInteligenciaNegocio [D] <- [U] ContextoProcesamiento
+
+	ContextoInteligenciaNegocio [D] <- [U] ContextoDistribucion
+
+	ContextoInteligenciaNegocio [D] <- [U] ContextoFacturacion
+
+	ContextoInteligenciaNegocio [D] <- [U] ContextoEntrenamiento
+}
+
