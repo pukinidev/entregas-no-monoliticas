@@ -4,7 +4,7 @@
 
 ## Integrantes
 
-* Nicolas Carvajal Chavez
+* Nicolas Carvajal Chaves
 * Wyo Hann Chu Mendez
 * Sofia Velasquez Marin
 * Valeria Caro Ramirez
