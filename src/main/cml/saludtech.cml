@@ -1,0 +1,51 @@
+Domain InformacionImagenesMedicas {
+	domainVisionStatement = "Recaudar, procesar y distribuir imágenes médicas y
+diagnósticos anonimizados"
+
+	Subdomain Ingestion {
+		type = CORE_DOMAIN
+		domainVisionStatement = "Recaudar y almacenar los datos de las imágenes médicas"
+	}
+
+	Subdomain Limpieza {
+		type = CORE_DOMAIN
+		domainVisionStatement = "Limpiar y anonimizar los datos de las imágenes médicas"
+	}
+
+	Subdomain Procesamiento {
+		type = CORE_DOMAIN
+		domainVisionStatement = "Estructuración y enriquecimiento de los datos de las imágenes médicas"
+	}
+
+	Subdomain Distribucion {
+		type = CORE_DOMAIN
+		domainVisionStatement = "Distribuir los datos de las imágenes médicas"
+	}
+
+	Subdomain Entrenamiento {
+		type = CORE_DOMAIN
+		domainVisionStatement = "Crear los modelos, entrenamientos e investigación de las imágenes médicas"
+	}
+
+	Subdomain Facturacion {
+		type = GENERIC_SUBDOMAIN
+		domainVisionStatement = "Facturar los servicios de las imágenes médicas y adquisición de datos"
+	}
+
+	Subdomain GestionUsuarios {
+		type = GENERIC_SUBDOMAIN
+		domainVisionStatement = "Gestionar los usuarios y permisos de la plataforma de las imágenes médicas"
+	}
+
+	Subdomain Ventas {
+		type = SUPPORTING_DOMAIN
+		domainVisionStatement = "Contactar y vender los servicios Enterprise de las imágenes médicas"
+	}
+
+	Subdomain InteligenciaDeNegocio {
+		type = SUPPORTING_DOMAIN
+		domainVisionStatement = "Analizar y reportar los datos de la operación de las imágenes médicas"
+	}
+
+}
+
