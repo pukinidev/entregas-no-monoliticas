@@ -58,11 +58,99 @@ En el README se encuentra la información de los hallazgos de los dominios de ne
 
 ## Lenguaje ubicuo flujo "anonimización, ingestión y enriquecimiento de datos"
 
+### Convenciones
+
+| **Tipo**               | **Elemento**                                   | **Descripción**                                                                                                                 |
+|------------------------|------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------- |
+| **Actor**              | **Equipo de infraestructura**                  | Equipo encargado de configurar la nube privada y realizar la importación inicial de datos médicos, asegurando el aislamiento y seguridad del ambiente.            |
+| **Actor**              | **Investigadores y Científicos de Datos**      | Profesionales responsables de verificar, mapear y organizar los datos anonimizados para prepararlos para el análisis y la ejecución de modelos de IA.             |
+| **Actor**              | **Equipo de datos**                            | Encargados de preparar, procesar, ejecutar modelos de IA y generar resultados estructurados a partir de los datos médicos anonimizados.                           |
+| **Comando**            | **Crear ambiente privado**                     | Acción inicial para configurar un ecosistema seguro y aislado en la nube privada para cada partner o institución médica.                                           |
+| **Comando**            | **Importar datos a la nube privada**           | Transferir datos médicos desde servicios externos (como Google Drive o un Data Center privado) hacia la infraestructura de nube privada.                         |
+| **Comando**            | **Anonimizar datos**                           | Proceso de eliminación de información sensible de los datos médicos, utilizando scripts especializados para cumplir con regulaciones como HIPAA.                  |
+| **Comando**            | **Borrar datos no anonimizados**               | Eliminar permanentemente los datos originales con información sensible una vez que han sido procesados y anonimizados.                                            |
+| **Comando**            | **Verificar y mapear datos**                   | Revisar los datos anonimizados y organizar los archivos médicos y diagnósticos en grupos que faciliten el análisis y procesamiento.                               |
+| **Comando**            | **Ejecutar modelos de IA en los datos**        | Aplicar modelos de inteligencia artificial previamente entrenados a los datos médicos organizados para obtener diagnósticos y análisis avanzados.                |
+| **Comando**            | **Generar DataFrames estructurados**           | Crear estructuras de datos organizadas (DataFrames en formato parquet) que contienen información médica anonimizada y diagnósticos estructurados.                 |
+| **Comando**            | **Crear conexión paciente-diagnóstico-imagen** | Generar un token único para asociar pacientes con diagnósticos e imágenes de manera anónima, asegurando privacidad y trazabilidad del historial clínico.          |
+| **Evento de dominio**  | **Ambiente privado creado**                    | Se ha configurado exitosamente un ecosistema de nube privada para almacenar y procesar los datos médicos.                                                         |
+| **Evento de dominio**  | **Datos importados a la nube privada**         | Los datos han sido trasladados desde la infraestructura del partner hacia el ecosistema de nube privada de manera segura.                                         |
+| **Evento de dominio**  | **Datos anonimizados**                         | Los datos han sido procesados para eliminar cualquier información que permita identificar a los pacientes.                                                        |
+| **Evento de dominio**  | **Datos no anonimizados borrados**             | Los datos originales con información sensible han sido eliminados para cumplir con las regulaciones de privacidad.                                                |
+| **Evento de dominio**  | **Verificación de datos completada**           | Los datos han sido revisados manual y semiautomáticamente para asegurar que no contienen información sensible y están correctamente organizados.                  |
+| **Evento de dominio**  | **Pipelines y Modelos IA ejecutados**          | Los pipelines de IA han sido ejecutados exitosamente para analizar y clasificar los datos médicos organizados.                                                    |
+| **Evento de dominio**  | **DataFrames generados con diagnóstico**       | Se han creado estructuras de datos organizadas que contienen diagnósticos e información médica anonimizada.                                                       |
+| **Evento de dominio**  | **Conexión paciente-diagnóstico-imagen creada**| Se ha generado una conexión única y anonimizada entre pacientes, diagnósticos e imágenes.                                                                         |
+| **Modelo de lectura**  | **Repositorio de Diagnósticos**                | Base de datos temporal donde se almacenan los datos médicos importados antes de la anonimización. Facilita la organización inicial, verificación y procesamiento de los datos para su posterior anonimización y análisis.                                             |
+| **Modelo de lectura**  | **Repositorio de Datos Anonimizados**          | Colección de datos médicos procesados y anonimizados listos para su uso en análisis o almacenamiento seguro.                                                      |
+| **Modelo de lectura**  | **Dataframes categorizados y etiquetados**      | Conjunto de datos organizados y etiquetados en grupos según modalidad de examen, parte del cuerpo o diagnóstico patológico.                                        |
+| **Modelo de lectura**  | **Historial Clínico Ofuscado**                 | Registro médico anonimizado que permite la trazabilidad de diagnósticos y tratamientos sin revelar la identidad del paciente.                                      |
+| **Sistema Externo**    | **Nube privada**                               | Infraestructura tecnológica propiedad de STA donde se almacenan y procesan datos médicos de forma segura y aislada.                                               |
+| **Sistema Externo**    | **Google Drive / Dropbox / Data Center Privado**| Servicios utilizados por los centros de salud para almacenar y transferir datos médicos antes de importarlos a la nube privada de STA.                            |
+
+
 ### AS-IS
 
 ![Lenguaje ubicuo (AS-IS) flujo "anonimización, ingestión y enriquecimiento de datos"](./images/flujo-asis.png)
 
-// TODO: Descripción del flujo AS-IS
+
+**1. Preparación e Importación de Datos**
+
+![Lenguaje ubicuo (AS-IS) flujo "anonimización, ingestión y enriquecimiento de datos"](./images/flujo-asis-p1.jpg)
+
+* **Crear ambiente privado:** El equipo de infraestructura configura un ambiente seguro y aislado en la nube privada de STA. Este ambiente es multitenant, lo que significa que los recursos físicos y virtuales están completamente separados entre partners. 
+
+* **Importar datos a la nube privada:** Los datos médicos (como imágenes DICOM) son transferidos desde su origen (on-premise o servicios externos) hacia la nube privada.
+
+* **Repositorio de Diagnósticos:** Los datos importados se almacenan temporalmente en el Repositorio de Diagnósticos. Este repositorio organiza los datos iniciales y facilita tareas como verificación, mapeo y preparación antes de ser procesados.
+
+* **Anonimizar datos:** Los datos médicos en el Repositorio de Diagnósticos son procesados para eliminar cualquier información identificable mediante scripts especializados que aseguran el cumplimiento de regulaciones de privacidad.
+
+* **Borrar datos no anonimizados:** Los datos originales que contienen información sensible son eliminados tras completar el proceso de anonimización.
+
+**2. Verificación y Organización de Datos**
+
+![Lenguaje ubicuo (AS-IS) flujo "anonimización, ingestión y enriquecimiento de datos"](./images/flujo-asis-p2.jpg)
+
+* **Verificar y mapear datos:** El equipo de datos revisa manual y semiautomáticamente los datos almacenados en el Repositorio de Diagnósticos. Durante esta etapa, los datos se agrupan y organizan en categorías basadas en modalidad de examen, región anatómica y patología/condición.
+
+* **Verificación de datos completada:** Una vez los datos han sido revisados y mapeados correctamente, se completan las tareas de organización y clasificación, preparando los datos para la anonimización.
+
+* **Repositorio de Datos Anonimizados:** Los datos verificados y organizados se transfieren al Repositorio de Datos Anonimizados tras el proceso de anonimización, garantizando que están listos para su análisis y almacenamiento seguro.
+
+**3. Procesamiento y Análisis con IA**
+
+![Lenguaje ubicuo (AS-IS) flujo "anonimización, ingestión y enriquecimiento de datos"](./images/flujo-asis-p3.jpg)
+
+* **Ejecutar modelos de IA en los datos:** Se ejecutan diferentes pipelines y modelos de IA entrenados específicamente para procesar los datos según los clusters o agrupaciones definidas en la etapa anterior. Los pipelines abarcan distintos enfoques, como: modalidad de examen, región anatómica y patología/condición.
+
+* **Pipelines y Modelos IA ejecutados:** Una vez los modelos de IA procesan los datos, se generan resultados preliminares basados en los criterios de modalidad, parte del cuerpo y patologías.
+
+* **Generar DataFrames estructurados:** Los resultados obtenidos se organizan en estructuras de datos bien definidas (como DataFrames en formato Parquet), que contienen información anonimizada junto con diagnósticos médicos.
+
+* **DataFrames generados con diagnóstico:** Los DataFrames ahora contienen diagnósticos médicos relevantes y datos organizados, listos para ser utilizados en análisis futuros o investigaciones.
+
+* **Dataframes categorizados y etiquetados:** Los DataFrames generados son categorizados y etiquetados con base en los criterios mencionados (modalidad, parte del cuerpo, patologías). Esto permite un acceso más estructurado y eficiente a la información.
+
+**4. Generación de Conexiones y Persistencia**
+
+![Lenguaje ubicuo (AS-IS) flujo "anonimización, ingestión y enriquecimiento de datos"](./images/flujo-asis-p4.jpg)
+
+* **Crear conexión paciente-diagnóstico-imagen:** Se genera un token único que asocia los datos anonimizados del paciente con sus diagnósticos e imágenes. Este identificador único permite la trazabilidad longitudinal de los datos médicos, asegurando que se pueda construir un historial clínico a lo largo de los años sin revelar información sensible.
+
+* **Historial Clínico Ofuscado:** : Durante este proceso, se organiza un historial clínico anonimizado que permite mantener un registro completo y trazable de los datos médicos a lo largo del tiempo, sin revelar la identidad del paciente.
+
+* **Conexión paciente-diagnóstico-imagen creada:** Una vez establecida la conexión, se confirma que los datos están correctamente vinculados de forma anonimizada, lo que permite una organización eficiente y un acceso seguro a los historiales clínicos.
+
+
+
+
+
+
+
+
+
+
 
 ### TO-BE
 
