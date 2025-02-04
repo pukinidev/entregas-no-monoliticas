@@ -224,7 +224,7 @@ Este flujo garantiza la correcta integración de los datos en la nube privada, a
 | **ContextoProcesamiento**   | Estructura y enriquece los datos de las imágenes médicas antes de su uso en otros contextos.                                                                             |
 | **ContextoDistribucion**    | Se encarga de la entrega de datos procesados a los diferentes consumidores, esto incluye tanto a clientes como a los expertos que se contratan para los planes enterprise. |
 | **ContextoEntrenamiento**   | Administra la creación, entrenamiento e investigación de modelos basados en imágenes médicas cuando se solicita un plan enterprise.                                    |
-| **ContextoFacturacion**     | Gestiona la facturación de los servicios de la compaía.                                                                                                                  |
+| **ContextoFacturacion**     | Gestiona la facturación de los servicios de la compañía.                                                                                                                |
 | **ContextoGestionUsuarios** | Administra usuarios y sus permisos dentro de la plataforma.                                                                                                                |
 
 ## Relaciones entre Contextos Acotados
@@ -258,7 +258,7 @@ Las relaciones entre los contextos se justifican con los siguientes patrones:
 | **ContextoProcesamiento**        | Estructura y enriquece los datos de las imágenes médicas antes de su uso en otros contextos.                                                                             |
 | **ContextoDistribucion**         | Se encarga de la entrega de datos procesados a los diferentes consumidores, esto incluye tanto a clientes como a los expertos que se contratan para los planes enterprise. |
 | **ContextoEntrenamiento**        | Administra la creación, entrenamiento e investigación de modelos basados en imágenes médicas cuando se solicita un plan enterprise.                                    |
-| **ContextoFacturacion**          | Gestiona la facturación de los servicios de la compaía.                                                                                                                  |
+| **ContextoFacturacion**          | Gestiona la facturación de los servicios de la compañía.                                                                                                                |
 | **ContextoGestionUsuarios**      | Administra usuarios y sus permisos dentro de la plataforma.                                                                                                                |
 | **ContextoSeguridadYCompliance** | Supervisa la regulación y cumplimiento de normativas en la gestión de imágenes médicas.                                                                                |
 | **ContextoRegionEEUU**           | Maneja el almacenamiento y segmentación de datos en EE.UU., respetando normativas locales.                                                                                |
