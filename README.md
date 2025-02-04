@@ -156,7 +156,100 @@ En el README se encuentra la información de los hallazgos de los dominios de ne
 
 ![Lenguaje ubicuo (TO-BE) flujo "anonimización, ingestión y enriquecimiento de datos"](./images/flujo-tobe.png)
 
-// TODO: Descripción del flujo TO-BE
+
+
+![image](https://github.com/user-attachments/assets/353d5b17-e4b5-42c1-a15a-f599626df814)
+
+### Preparación e importacion de Datos
+
+**1. Creación y Aprovisionamiento del Entorno de Datos**
+
+* **Configurar el ambiente privado:** El sistema de aprovisionamiento de ambiente de datos establece un entorno seguro en la nube privada de un país específico. Se configura un ambiente privado en el país de origen para garantizar la seguridad y segregación de datos.
+
+
+**2. Subida y Almacenamiento Seguro de Datos**
+
+
+* **Subir datos al sistema:** Los dueños de los datos transfieren la información al sistema de almacenamiento de datos.
+
+* **Encriptar datos no anonimizados:** Los datos no anonimizados se encriptan antes de ser almacenados, asegurando su privacidad y protección.
+
+* **Gestión en el Repositorio de Diagnósticos:** Los datos encriptados se almacenan en el Repositorio de Diagnósticos, donde se organizan en un entorno seguro.
+
+
+
+**3. Transferencia de Datos a la Nube Privada**
+
+
+* **Importar datos a la nube privada:** Los datos encriptados son transferidos desde su almacenamiento seguro hacia la nube privada, asegurando su correcta integración con los sistemas de procesamiento.
+
+* **Confirmar datos importados:** Una vez que los datos han sido correctamente integrados en la nube, quedan listos para su procesamiento.
+
+
+
+**4. Desencriptación y Anonimización**
+
+
+
+* **Desencriptar datos:** Los datos encriptados son desencriptados en un entorno seguro para su posterior procesamiento.
+
+* **Anonimizar datos:** Se eliminan todos los elementos identificables, asegurando el cumplimiento de regulaciones de privacidad y protección de datos.
+
+
+
+**5. Eliminación de Datos No Anonimizados**
+
+
+* **Eliminar datos originales:** Una vez finalizado el proceso de anonimización, los datos originales no anonimizados son eliminados, garantizando la seguridad y confidencialidad de la información.
+
+
+![image](https://github.com/user-attachments/assets/ce908c7c-5889-43d4-9fe4-3a7504b032e8)
+
+### **Verificación y Categorización de Datos**
+
+**1. Verificación y Mapeo de Datos**  
+
+* **Verificar y mapear datos:** El sistema de verificación revisa y organiza los datos almacenados en el Repositorio de Datos Anonimizados. Durante esta etapa, los datos se agrupan en categorías relevantes, como tipo de examen, región anatómica y condición médica.  
+* **Verificación de datos completada:** Una vez revisados y mapeados correctamente, se confirma la verificación y organización de los datos.  
+
+**2. Aplicación de Modelos de Inteligencia Artificial**  
+
+* **Ejecutar modelos de IA en los datos:** Se aplican modelos de inteligencia artificial para analizar y procesar los datos verificados.  
+* **Pipelines y modelos de IA ejecutados:** Los datos pasan por un flujo automatizado de procesamiento basado en IA, asegurando la correcta clasificación y estructuración de la información.  
+
+**3. Generación de DataFrames Estructurados**  
+
+* **Generar DataFrames estructurados:** Se crean DataFrames organizados con los datos procesados y estructurados.  
+* **DataFrames generados con diagnóstico:** Los DataFrames incluyen información categorizada y diagnósticos generados a partir del análisis de los modelos de IA.  
+
+**4. Categorización y Etiquetado de Datos**  
+
+* **DataFrames categorizados y etiquetados:** Los datos verificados y categorizados se almacenan en un repositorio estructurado, listos para su análisis y uso en procesos posteriores.  
+
+![image](https://github.com/user-attachments/assets/2857dbd4-0a9c-48df-be6f-0eb4e6130f32)
+
+### **Almacenamiento y Mapeo de Pacientes**
+
+**1. Importación de Datos a la Nube Privada**  
+
+* **Importar datos a la nube privada:** Los datos son transferidos desde su origen a la nube privada dentro de un entorno seguro.  
+* **Confirmar datos importados:** Una vez los datos han sido correctamente integrados en la nube privada, quedan listos para su procesamiento en el sistema de mapeo de pacientes.  
+
+**2. Creación de Conexiones en el Sistema de Mapeo de Pacientes**  
+
+* **Crear conexión paciente-diagnóstico-imagen:** Se establece la relación entre el paciente, su diagnóstico y las imágenes médicas asociadas.  
+* **Conexión paciente-diagnóstico-imagen creada:** Una vez finalizado el proceso de vinculación, los datos están estructurados y preparados para su análisis.  
+
+**3. Ofuscación del Historial Clínico**  
+
+* **Historial clínico ofuscado:** Para garantizar la privacidad y seguridad de los pacientes, los datos clínicos se ofuscan antes de ser utilizados en cualquier análisis o visualización.  
+
+---
+
+Este flujo garantiza la correcta integración de los datos en la nube privada, asegurando la estructuración adecuada de la información y la protección de la privacidad del paciente.  
+
+
+
 
 ## Contexto acotado
 
